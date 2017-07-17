@@ -16,7 +16,7 @@
   )
 
   if patient.age.to_i >= 60
-    patient.free_amount = true
+    patient.free = true
   end
 
   # Add patient histories
