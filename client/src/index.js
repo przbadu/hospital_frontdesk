@@ -6,8 +6,13 @@ import registerServiceWorker from './registerServiceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootswatch/slate/bootstrap.css';
 
+// other libraries
+import 'jquery/src/jquery';
+import 'bootstrap/dist/js/bootstrap.js';
+
 // components
-import App from './HelloWorld/components/HelloWorld';
+import Navbar from './Shared/components/Navbar';
+import App from './Shared/components/App';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
