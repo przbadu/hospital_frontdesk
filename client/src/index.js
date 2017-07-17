@@ -4,7 +4,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 // Styles
 import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
+import 'bootswatch/slate/bootstrap.css';
 
 // components
 import App from './HelloWorld/components/HelloWorld';
