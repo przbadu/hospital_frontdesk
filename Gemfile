@@ -13,6 +13,8 @@ gem 'puma', '~> 3.7'
 
 # Tools and Helpers
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'annotate'
+gem 'faker'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
