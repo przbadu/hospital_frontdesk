@@ -8,8 +8,8 @@ end
 gem 'rails', '~> 5.1.2'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
+gem 'rack-cors'
 # gem 'redis', '~> 3.0'
-# gem 'rack-cors'
 
 # Tools and Helpers
 gem 'active_model_serializers', '~> 0.10.0'
