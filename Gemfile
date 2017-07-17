@@ -8,19 +8,22 @@ end
 gem 'rails', '~> 5.1.2'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
-# gem 'jbuilder', '~> 2.5'
-# Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
-
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
 # Tools and Helpers
+gem 'active_model_serializers', '~> 0.10.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry-rails'
   gem 'foreman'
+
+  # Test framework
+  gem 'rspec-rails', '~> 3.5'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
+  gem 'rails-controller-testing'
 end
 
 group :development do
