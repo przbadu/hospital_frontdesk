@@ -24,6 +24,7 @@ function Routes() {
         <Navbar />
 
         <div className="container">
+          <Route exact path="/" component={PatientForm} />
           <Route exact path="/patients" component={Patients} />
           <Route path="/patients/new" component={PatientForm} />
         </div>
