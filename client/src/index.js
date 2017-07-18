@@ -23,7 +23,7 @@ function Routes() {
       <div>
         <Navbar />
 
-        <div class="container">
+        <div className="container">
           <Route exact path="/patients" component={Patients} />
           <Route path="/patients/new" component={PatientForm} />
         </div>
