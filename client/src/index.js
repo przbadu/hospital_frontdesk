@@ -18,7 +18,7 @@ import Patients from './Patients/components/Patients';
 import PatientForm from './Patients/components/PatientForm';
 
 // Axios global settings
-axios.defaults.baseURL = 'http://localhost:3001';
+axios.defaults.baseURL = 'https://hospital-frontdesk.herokuapp.com';
 // axios.defaults.header.common['Authorization'] = AUTH_TOKEN;
 
 // router are handled from here
