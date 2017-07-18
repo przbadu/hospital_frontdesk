@@ -76,7 +76,7 @@ class PatientForm extends Component {
       <div className="panel panel-default">
         <div className="panel-body">
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-12">
               <h1>Registration Form</h1>
               <hr/>
               <form

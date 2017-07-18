@@ -6,7 +6,7 @@ import axios from 'axios';
 
 // Styles
 import 'bootstrap/dist/css/bootstrap.css';
-import 'bootswatch/slate/bootstrap.css';
+import 'bootswatch/paper/bootstrap.css';
 
 // other libraries
 import 'jquery/src/jquery';
