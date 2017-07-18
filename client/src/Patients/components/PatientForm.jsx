@@ -1,74 +1,164 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Redirect, Link } from 'react-router-dom';
+import axios from 'axios';
 import { SimpleInput, Select, TextArea } from './../../Bootstrap/components/Form';
 
-function PatientForm() {
-  return (
-    <div className="panel panel-default">
-      <div className="panel-body">
-        <div className="row">
-          <div className="col-md-6">
-            <h1>Registration Form</h1>
-            <hr/>
-            <p className="text-muted">All fields with ( * ) are required fields.</p>
-          </div>
+class PatientForm extends Component {
+  constructor() {
+    super();
 
-          <div className="col-md-6">
-              <SimpleInput
-                title="First Name"
-                name="patient_first_name"
-                inputType="text"
-                placeholder="John" />
+    this.state = {
+      errors: {},
+      hasError: false,
+      loading: false,
+      patient: '',
+      redirect: false,
+    }
+  }
 
-              <SimpleInput
-                title="Last Name"
-                name="patient_last_name"
-                inputType="text"
-                placeholder="Doe" />
+  handleSubmit(e) {
+    e.preventDefault();
 
-              <SimpleInput
-                title="Age"
-                name="patient_age"
-                inputType="number"
-                placeholder="20" />
+    var {
+      first_name,
+      last_name,
+      age,
+      gender,
+      address,
+      service_type,
+      fee_amount,
+      free,
+    } = this.form;
 
-              <Select
-                name="patient_gender"
-                title="Gender"
-                options={['Male', 'Female']}/>
+    const patientData = {
+      first_name: first_name.value,
+      last_name: last_name.value,
+      age: age.value,
+      gender: gender.value,
+      address: address.value,
+      service_type: service_type.value,
+      fee_amount: fee_amount.value,
+      free: free.value,
+    };
 
-              <Select
-                title="Service Type"
-                name="patient_service_type"
-                options={['OPD', 'Emergency']} />
+    this.setState({ loading: true });
+    axios.post('/patients', { patient: patientData })
+      .then(patient => {
+        this.setState({
+          patient,
+          errors: {},
+          hasError: false,
+          loading: false,
+          redirect: true,
+        })
+      })
+      .catch(error => {
+        this.setState({
+          patient: '',
+          errors: error.response,
+          hasError: true,
+          loading: false,
+          redirect: false,
+        })
 
-              <TextArea
-                title="Address"
-                name="patient_address"
-                cols={30}
-                rows={3} />
+        console.log('state: ', this.state);
+      });
+  }
 
-              <SimpleInput
-                inputType="number"
-                name="patient_fee_amount"
-                title="Fee Amount" />
+  render() {
+    const { redirect } = this.state;
 
-              <div className="form-group">
-                <input type="checkbox"
-                  name="patient_free"
-                  placeholder="15" />
-                &nbsp; Eligible for Free?
-              </div>
+    if(redirect) {
+      return <Redirect to="/patients" />
+    }
 
-              <div className="form-group">
-                <input type="submit"
-                  value="Create new patient"
-                  className="btn btn-default" />
-              </div>
+    return (
+      <div className="panel panel-default">
+        <div className="panel-body">
+          <div className="row">
+            <div className="col-md-6">
+              <h1>Registration Form</h1>
+              <hr/>
+              <form
+                onSubmit={this.handleSubmit.bind(this)}
+                ref={form => this.form = form}>
+
+                <SimpleInput
+                  title="First Name"
+                  name="first_name"
+                  inputType="text"
+                  placeholder="John"
+                  hasError={this.state.hasError}
+                  errors={this.state.errors} />
+
+                <SimpleInput
+                  title="Last Name"
+                  name="last_name"
+                  inputType="text"
+                  placeholder="Doe"
+                  hasError={this.state.hasError}
+                  errors={this.state.errors} />
+
+                <SimpleInput
+                  title="Age"
+                  name="age"
+                  inputType="number"
+                  placeholder="20"
+                  hasError={this.state.hasError}
+                  errors={this.state.errors} />
+
+                <Select
+                  name="gender"
+                  title="Gender"
+                  options={['Male', 'Female']}
+                  hasError={this.state.hasError}
+                  errors={this.state.errors} />
+
+                <Select
+                  title="Service Type"
+                  name="service_type"
+                  options={['OPD', 'Emergency']}
+                  hasError={this.state.hasError}
+                  errors={this.state.errors} />
+
+                <TextArea
+                  title="Address"
+                  name="address"
+                  cols={30}
+                  rows={3}
+                  hasError={this.state.hasError}
+                  errors={this.state.errors} />
+
+                <SimpleInput
+                  inputType="number"
+                  name="fee_amount"
+                  title="Fee Amount"
+                  hasError={this.state.hasError}
+                  errors={this.state.errors} />
+
+                <div className="form-group">
+                  <input type="checkbox"
+                    name="free"
+                    placeholder="15" />
+                  &nbsp; Eligible for Free?
+                </div>
+
+                <div className="form-group">
+                  <input type="submit"
+                    value={this.state.loading ? 'Submitting Data...' : 'Create New Patient'}
+                    className="btn btn-default"
+                    disabled={this.state.loading}/>
+
+                  &nbsp;
+                  <Link to="/patients" className="btn btn-warning">Go Back</Link>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default PatientForm;

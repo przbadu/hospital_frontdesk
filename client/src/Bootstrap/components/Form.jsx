@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 // <SimpleInput
 //    title="First Name"
@@ -14,9 +15,18 @@ import PropTypes from 'prop-types';
 // in the constructor
 //
 export function SimpleInput({...props}) {
+  const checkError = props.hasError && props.errors.data[props.name];
+
+  let formGroupClasses = classNames({
+    'form-group': true,
+    'has-feedback': !props.loading,
+    'has-error': checkError,
+  })
+
+
   return (
-    <div className="form-group">
-      <label className="form-label">{props.title}</label>
+    <div className={formGroupClasses}>
+      <label className="control-label">{props.title}</label>
       <input
         className="form-control"
         name={props.name}
@@ -24,6 +34,14 @@ export function SimpleInput({...props}) {
         value={props.value}
         onChange={props.onChange}
         placeholder={props.placeholder} />
+
+      {/* Error glyphicon icon */}
+      { checkError &&
+        <span className="glyphicon glyphicon-remove form-control-feedback"></span>}
+
+      {/* Error message */}
+      { checkError &&
+          <span className="help-block">{props.errors.data[props.name]}</span> }
     </div>
   );
 }
@@ -40,6 +58,8 @@ SimpleInput.propTypes = {
     PropTypes.number,
   ]),
   placeholder: PropTypes.string,
+  hasError: PropTypes.bool,
+  errors: PropTypes.object,
 };
 
 // <select>...</select>
@@ -79,6 +99,8 @@ Select.propTypes = {
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   allowBlank: PropTypes.bool,
+  hasError: PropTypes.bool,
+  errors: PropTypes.object,
 };
 
 
@@ -107,4 +129,6 @@ TextArea.propTypes = {
   cols: PropTypes.number.isRequired,
   value: PropTypes.string,
   placeholder: PropTypes.string,
+  hasError: PropTypes.bool,
+  errors: PropTypes.object,
 };

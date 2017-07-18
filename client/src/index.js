@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import axios from 'axios';
 
 // Styles
 import 'bootstrap/dist/css/bootstrap.css';
@@ -15,6 +16,10 @@ import 'bootstrap/dist/js/bootstrap.js';
 import Navbar from './Bootstrap/components/Navbar';
 import Patients from './Patients/components/Patients';
 import PatientForm from './Patients/components/PatientForm';
+
+// Axios global settings
+axios.defaults.baseURL = 'http://localhost:3001';
+// axios.defaults.header.common['Authorization'] = AUTH_TOKEN;
 
 // router are handled from here
 function Routes() {
